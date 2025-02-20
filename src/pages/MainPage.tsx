@@ -3,6 +3,7 @@ import {
 	FeaturesList,
 	FeaturesListItem,
 } from "../widgets/FeaturesList/FeatureList";
+import Hero from "../widgets/Hero/Hero";
 import { HeroStats, HeroStatItem } from "../widgets/HeroStats/HeroStats";
 import TeamSection from "../widgets/TeamSection/TeamSection";
 
@@ -10,16 +11,12 @@ const MainPage = () => {
 	return (
 		<>
 			{/* Hero Section */}
-			<Container>
-				<div className="text-center">
-					<h1 className="title mb-6 title-alt">
-						Predict. Vote. Earn.
-					</h1>
-					<p className="text-xl hover-text-alt mb-12 max-w-2xl mx-auto ">
-						Decentralized prediction market platform where your
-						insight meets opportunity
-					</p>
-				</div>
+			<Container border={true}>
+				<Hero
+					title="Predict. Vote. Earn."
+					subtitle="Decentralized prediction market platform where your
+						insight meets opportunity"
+				/>
 			</Container>
 
 			{/* Live Markets Stats */}
@@ -30,7 +27,7 @@ const MainPage = () => {
 			</HeroStats>
 
 			{/* Platform Features */}
-			<Container>
+			<Container border={true}>
 				<FeaturesList>
 					<FeaturesListItem title="Decentralized Governance">
 						Participate in platform decisions through our governance

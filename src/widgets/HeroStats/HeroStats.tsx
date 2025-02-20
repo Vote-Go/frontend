@@ -5,7 +5,7 @@ import { useInView } from "react-intersection-observer";
 import Container from "../../shared/Container/Container";
 
 export const HeroStats = ({ children }: { children: React.ReactNode }) => (
-	<Container>
+	<Container border={true}>
 		<div className="flex flex-wrap -m-4 text-center">{children}</div>
 	</Container>
 );

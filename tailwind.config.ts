@@ -18,9 +18,11 @@ const config: Config = {
 					900: "#191919",
 				},
 			},
+			lineClamp: {
+				3: "3",
+			},
 		},
 	},
-	
 };
 
 export default config;
