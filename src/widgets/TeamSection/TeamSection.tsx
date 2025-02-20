@@ -11,49 +11,34 @@ export const DEVELOPERS: IDeveloperCard[] = [
 		name: "Alex",
 		username: "hellpes",
 		role: "frontend",
-		description: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-		Exercitationem veritatis quas natus. Nobis, quis porro. Inventore,
-		ad voluptatem aliquam commodi, iure hic cum obcaecati harum, id unde
-		voluptates impedit quisquam!`,
+		description: `<> just overrated as f </>`,
 		githubLink: "https://github.com/hellpes666",
 	},
 	{
 		name: "Marat",
 		username: "maratdev0210",
-		description: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-	  Exercitationem veritatis quas natus. Nobis, quis porro. Inventore,
-	  ad voluptatem aliquam commodi, iure hic cum obcaecati harum, id unde
-	  voluptates impedit quisquam!`,
+		description: `<> шахматы - 2.200 рейтинга; часы - 50к </>`,
 		role: "frontend",
 		githubLink: "https://github.com/maratdev0210",
 	},
 	{
 		name: "Danya",
 		username: "danchicic52",
-		description: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-		Exercitationem veritatis quas natus. Nobis, quis porro. Inventore,
-		ad voluptatem aliquam commodi, iure hic cum obcaecati harum, id unde
-		voluptates impedit quisquam!`,
+		description: `<> любитель амнямов и сладких альтушек </>`,
 		role: "backend",
 		githubLink: "https://github.com/Danchicic",
 	},
 	{
 		name: "Egor",
 		username: "spaklak",
-		description: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-		Exercitationem veritatis quas natus. Nobis, quis porro. Inventore,
-		ad voluptatem aliquam commodi, iure hic cum obcaecati harum, id unde
-		voluptates impedit quisquam!`,
+		description: `<> Prompt: 70%; Skill Issue: 100% </>`,
 		role: "fullstack",
 		githubLink: "https://github.com/Spaklak",
 	},
 	{
 		name: "Nikita",
 		username: "nktkln",
-		description: `Lorem ipsum dolor sit amet consectetur adipisicing elit.
-		Exercitationem veritatis quas natus. Nobis, quis porro. Inventore,
-		ad voluptatem aliquam commodi, iure hic cum obcaecati harum, id unde
-		voluptates impedit quisquam!`,
+		description: `<> легендарна карточка разработчика </> <> TEAM LEAD of амнмычи </> `,
 		role: "team-lead",
 		githubLink: "https://github.com/NKTKLN",
 	},
@@ -95,7 +80,7 @@ const DeveloperDefinition: React.FC<Omit<IDeveloperCard, "githubLink">> = ({
 			<span className="text text-center font-medium text-sm lg:text-lg sm:text-left bg w-fit px-2 py-1 rounded-4xl">
 				{name} - <strong>{role}</strong>
 			</span>
-			<p className="text-alt text-sm lg:text-md text-center tracking-wide text-balance sm:text-left">
+			<p className="text-alt text-sm lg:text-md text-center tracking-wider	 text-balance sm:text-left font-medium">
 				{description}
 			</p>
 		</>
@@ -140,7 +125,7 @@ const DeveloperGrid = () => {
 					/>
 				</AnimatedContainer>
 			))}
-			<div className="col-span-2 flex justify-center mx-auto">
+			<div className="w-full col-start-2 col-end-4 flex justify-center mx-auto">
 				<AnimatedContainer>
 					<DeveloperCard
 						name={DEVELOPERS[4].name}

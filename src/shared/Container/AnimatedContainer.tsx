@@ -46,6 +46,7 @@ const AnimatedContainer: React.FC<IAnimatedContainer> = ({ children }) => {
 			style={{
 				transform: transformStyle,
 				transition: "transform 0.2s ease-out",
+				width: "100%",
 			}}
 		>
 			{children}
