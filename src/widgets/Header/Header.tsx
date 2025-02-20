@@ -56,7 +56,7 @@ const NavigationMenu = ({ isOpen }) => (
 		}`}
 	>
 		<nav className="md:ml-auto flex flex-wrap items-center gap-6 font-medium">
-			<NavLink href="/markets">Markets</NavLink>
+			<NavLink href="/market">Markets</NavLink>
 			<NavLink href="/leaderboard">Leaderboard</NavLink>
 			<NavLink href="/faq">FAQ</NavLink>
 		</nav>
@@ -68,4 +68,3 @@ const NavLink = ({ href, children }) => (
 		{children}
 	</a>
 );
-	
