@@ -12,8 +12,10 @@ const MainPage = () => {
 			{/* Hero Section */}
 			<Container>
 				<div className="text-center">
-					<h1 className="title mb-6">Predict. Vote. Earn.</h1>
-					<p className="text-xl hover-text mb-12 max-w-2xl mx-auto ">
+					<h1 className="title mb-6 title-alt">
+						Predict. Vote. Earn.
+					</h1>
+					<p className="text-xl hover-text-alt mb-12 max-w-2xl mx-auto ">
 						Decentralized prediction market platform where your
 						insight meets opportunity
 					</p>

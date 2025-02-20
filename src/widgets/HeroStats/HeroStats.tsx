@@ -5,11 +5,9 @@ import { useInView } from "react-intersection-observer";
 import Container from "../../shared/Container/Container";
 
 export const HeroStats = ({ children }: { children: React.ReactNode }) => (
-	<section className="py-20 ">
-		<Container>
-			<div className="flex flex-wrap -m-4 text-center">{children}</div>
-		</Container>
-	</section>
+	<Container>
+		<div className="flex flex-wrap -m-4 text-center">{children}</div>
+	</Container>
 );
 
 export const HeroStatItem = ({
@@ -33,7 +31,7 @@ export const HeroStatItem = ({
 
 	return (
 		<div ref={ref} className="p-4 sm:w-1/3 w-1/2">
-			<h2 className="font-medium sm:text-5xl text-3xl text">
+			<h2 className="font-medium sm:text-5xl text-3xl text-alt">
 				{isVisible && (
 					<CountUp
 						end={value}
@@ -42,7 +40,7 @@ export const HeroStatItem = ({
 					/>
 				)}
 			</h2>
-			<p className="hover-text mt-2">{label}</p>
+			<p className="hover-text-alt mt-2">{label}</p>
 		</div>
 	);
 };
