@@ -4,6 +4,7 @@ import ThemeIcon from "./components/ThemeIcon";
 import { setThemeSetting } from "../../store/features/themeSlice";
 import { useDispatch } from "react-redux";
 import { useCallback } from "react";
+import { PAGES } from "../../helpers/Page/page";
 
 interface HeaderProps {
   darkMode: boolean;
@@ -67,21 +68,25 @@ const MobileMenuButton = ({ isOpen, toggle }) => (
 );
 
 const NavigationMenu = ({ isOpen }) => (
-  <div
-    className={`md:flex flex-grow items-center ${isOpen ? "flex" : "hidden"}`}
-  >
-    <nav className="md:ml-auto flex flex-wrap items-center gap-6 font-medium">
-      <NavLink href="/market">Markets</NavLink>
-      <NavLink href="/leaderboard">Leaderboard</NavLink>
-      <NavLink href="/faq">FAQ</NavLink>
-    </nav>
-  </div>
+	<div
+		className={`md:flex flex-grow items-center ${
+			isOpen ? "flex" : "hidden"
+		}`}
+	>
+		<nav className="md:ml-auto flex flex-wrap items-center gap-6 font-medium">
+			{PAGES.map((headerItem) => (
+				<NavLink href={`/${headerItem}`}>
+					{headerItem.toLocaleUpperCase()}
+				</NavLink>
+			))}
+		</nav>
+	</div>
 );
 
 const NavLink = ({ href, children }) => (
-  <a href={href} className="hover-text">
-    {children}
-  </a>
+	<Link to={href} className="hover-text">
+		{children}
+	</Link>
 );
 
 export default Header;
