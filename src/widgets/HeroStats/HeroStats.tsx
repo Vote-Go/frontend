@@ -37,6 +37,7 @@ export const HeroStatItem = ({
 						end={value}
 						duration={2.5}
 						decimals={value % 1 !== 0 ? 1 : 0}
+						className="text"
 					/>
 				)}
 			</h2>

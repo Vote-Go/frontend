@@ -44,7 +44,7 @@ const EventsGrid = () => {
 					initial={{ y: 20, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					transition={{ delay: index * 0.1 }}
-					className="bg-gray-800 rounded-xl overflow-hidden hover:shadow-xl transition-all shadow-amber-50/30 hover:-translate-y-5"
+					className="bg-gray-800 rounded-xl overflow-hidden hover:shadow-lg transition-all shadow-white/30 dark:shadow-black/80 hover:-translate-y-2"
 				>
 					<div className="h-48 bg-gray-700 relative">
 						{event.image ? (
@@ -80,10 +80,10 @@ const EventsGrid = () => {
 					</div>
 
 					<div className="p-6">
-						<h3 className="text text-xl font-semibold mb-2">
+						<h3 className="text-white text-xl font-semibold mb-2">
 							{event.title}
 						</h3>
-						<p className="hover-text line-clamp-3 mb-4">
+						<p className="text-white/80 line-clamp-3 mb-4">
 							{event.description}
 						</p>
 
@@ -104,7 +104,7 @@ const EventsGrid = () => {
 								</svg>
 								{event.participants.toLocaleString()}
 							</div>
-							<button className="text px-4 cursor-pointer py-2 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors">
+							<button className=" px-4 cursor-pointer py-2 text-black bg-white hover:bg-white/30 hover:text-white rounded-lg transition-colors">
 								Vote Now
 							</button>
 						</div>

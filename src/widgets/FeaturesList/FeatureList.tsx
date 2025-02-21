@@ -1,8 +1,19 @@
 // FeaturesList.tsx
 export const FeaturesList = ({ children }: { children: React.ReactNode }) => {
 	return (
-		<div className="flex flex-col flex-wrap lg:py-6 -mb-10 lg:w-1/2 lg:pl-12 lg:text-left text-center">
-			{children}
+		<div className="flex items-center justify-between lg:py-6 lg:px-12">
+			<div className="flex flex-col flex-wrap  -mb-10 lg:w-1/2  lg:text-left text-center">
+				{children}
+			</div>
+
+			<div className="border-2 border-white dark:border-black rounded-4xl">
+				<img
+					src="/feature.jpeg"
+					alt="feature"
+					width={400}
+					className="rounded-4xl  p-4"
+				/>
+			</div>
 		</div>
 	);
 };

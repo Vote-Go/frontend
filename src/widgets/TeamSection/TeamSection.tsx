@@ -78,7 +78,7 @@ const DeveloperDefinition: React.FC<Omit<IDeveloperCard, "githubLink">> = ({
 				{username}
 			</h3>
 			<span className="text text-center font-medium text-sm lg:text-lg sm:text-left bg w-fit px-2 py-1 rounded-4xl">
-				{name} - <strong>{role}</strong>
+				{name} - <strong className="text">{role}</strong>
 			</span>
 			<p className="text text-sm lg:text-md text-center tracking-wider	 text-balance sm:text-left font-medium">
 				{description}
