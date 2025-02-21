@@ -3,7 +3,7 @@ export default function Footer() {
 		<footer className="bg-black text-white border-t border-gray-800">
 			<div className="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
 				<div className="flex items-end">
-					<span className="text-alt text-xl font-bold tracking-tighter">
+					<span className="text text-xl font-bold tracking-tighter">
 						Vote<span className="text-secondary mx-2">&</span>Go
 					</span>
 					<span className="ml-4 text-gray-400 text-sm">

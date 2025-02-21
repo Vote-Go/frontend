@@ -16,8 +16,8 @@ export const FeaturesListItem = ({
 }) => (
 	<div className="flex flex-col mb-10 lg:items-start items-center">
 		<div className="flex-grow">
-			<h3 className="text-xl font-semibold mb-2 text-alt">{title}</h3>
-			<p className="hover-text-alt leading-relaxed">{children}</p>
+			<h3 className="text-xl font-semibold mb-2 text">{title}</h3>
+			<p className="hover-text leading-relaxed">{children}</p>
 		</div>
 	</div>
 );

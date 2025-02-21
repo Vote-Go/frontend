@@ -48,7 +48,7 @@ export default function TeamSection() {
 	return (
 		<Container>
 			<div className="container mx-auto px-4">
-				<h2 className="text-3xl font-bold text-center mb-12">
+				<h2 className="text-3xl font-bold text-center mb-12 text">
 					Our Core Team
 				</h2>
 				{/* Реализация карточек команды */}
@@ -74,13 +74,13 @@ const DeveloperDefinition: React.FC<Omit<IDeveloperCard, "githubLink">> = ({
 }) => {
 	return (
 		<>
-			<h3 className="text-alt text-center text-md lg:text-3xl font-bold uppercase sm:text-left">
+			<h3 className="text text-center text-md lg:text-3xl font-bold uppercase sm:text-left">
 				{username}
 			</h3>
 			<span className="text text-center font-medium text-sm lg:text-lg sm:text-left bg w-fit px-2 py-1 rounded-4xl">
 				{name} - <strong>{role}</strong>
 			</span>
-			<p className="text-alt text-sm lg:text-md text-center tracking-wider	 text-balance sm:text-left font-medium">
+			<p className="text text-sm lg:text-md text-center tracking-wider	 text-balance sm:text-left font-medium">
 				{description}
 			</p>
 		</>
@@ -99,7 +99,7 @@ const DeveloperCard: React.FC<IDeveloperCard> = ({
 			to={githubLink}
 			target="_blank"
 			rel="noopener noreferrer"
-			className="flex h-full flex-col gap-4 rounded-xl border border-[var(--bg-dark)] px-4 py-6 sm:px-6 sm:py-8 dark:border-[var(--bg-light)]"
+			className="flex h-full flex-col gap-4 rounded-xl border border-white px-4 py-6 sm:px-6 sm:py-8 dark:border-black"
 		>
 			<DeveloperDefinition
 				description={description}

@@ -11,7 +11,7 @@ export default function App() {
 		{ path: "/faq", element: <FAQ /> },
 	];
 	return (
-		<div className="min-h-screen bg-black text-white flex flex-col">
+		<div className="min-h-screen bg flex flex-col">
 			<BrowserRouter>
 				<Header />
 

@@ -5,13 +5,13 @@ export default function Header() {
 	const [navbarOpen, setNavbarOpen] = React.useState(false);
 
 	return (
-		<header className="bg-alt text sticky top-0 z-50">
+		<header className="bg text sticky top-0 z-50 border-b-[var(--bg-alt)] border-b-[1.2px]">
 			<div className="container mx-auto flex flex-wrap p-5 md:flex-row">
 				<Link
 					className="flex items-center text mb-4 md:mb-0 pr-4"
 					to="/"
 				>
-					<span className="text-alt text-2xl font-bold tracking-tighter">
+					<span className="text text-2xl font-bold tracking-tighter">
 						Vote<span className="text-secondary mx-2">&</span>Go
 					</span>
 				</Link>
@@ -64,7 +64,7 @@ const NavigationMenu = ({ isOpen }) => (
 );
 
 const NavLink = ({ href, children }) => (
-	<a href={href} className="hover-text-alt">
+	<a href={href} className="hover-text">
 		{children}
 	</a>
 );
