@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "./store/store";
 import { BrowserRouter, Route, Routes } from "react-router";
-import { FAQ, Leaderboard, MainPage, Market } from "./pages";
+import { FAQ, Leaderboard, MainPage, Market, NotFound } from "./pages";
 import Footer from "./widgets/Footer/Footer";
 import Header from "./widgets/Header/Header";
 
@@ -12,6 +12,7 @@ export default function App() {
     { path: "/market", element: <Market /> },
     { path: "/leaderboard", element: <Leaderboard /> },
     { path: "/faq", element: <FAQ /> },
+    { path: "*", element: <NotFound /> },
   ];
 
   return (

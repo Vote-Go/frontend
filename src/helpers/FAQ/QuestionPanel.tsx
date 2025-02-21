@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MdExpandMore, MdExpandLess } from "react-icons/md";
+import { MdExpandMore } from "react-icons/md";
 
 interface QuestionPanelProps {
 	question: string;
