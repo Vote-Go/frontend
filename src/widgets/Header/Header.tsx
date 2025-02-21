@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
+import { PAGES } from "../../helpers/Page/page";
 
 export default function Header() {
 	const [navbarOpen, setNavbarOpen] = React.useState(false);
@@ -56,15 +57,17 @@ const NavigationMenu = ({ isOpen }) => (
 		}`}
 	>
 		<nav className="md:ml-auto flex flex-wrap items-center gap-6 font-medium">
-			<NavLink href="/market">Markets</NavLink>
-			<NavLink href="/leaderboard">Leaderboard</NavLink>
-			<NavLink href="/faq">FAQ</NavLink>
+			{PAGES.map((headerItem) => (
+				<NavLink href={`/${headerItem}`}>
+					{headerItem.toLocaleUpperCase()}
+				</NavLink>
+			))}
 		</nav>
 	</div>
 );
 
 const NavLink = ({ href, children }) => (
-	<a href={href} className="hover-text">
+	<Link to={href} className="hover-text">
 		{children}
-	</a>
+	</Link>
 );
