@@ -1,53 +1,70 @@
 import React from "react";
 import { Link } from "react-router";
+import ThemeIcon from "./components/ThemeIcon";
+import { setThemeSetting } from "../../store/features/themeSlice";
+import { useDispatch } from "react-redux";
+import { useCallback } from "react";
 import { PAGES } from "../../helpers/Page/page";
 
-export default function Header() {
-	const [navbarOpen, setNavbarOpen] = React.useState(false);
-
-	return (
-		<header className="bg text sticky top-0 z-50 border-b-[var(--bg-alt)] border-b-[1.2px]">
-			<div className="container mx-auto flex flex-wrap p-5 md:flex-row">
-				<Link
-					className="flex items-center text mb-4 md:mb-0 pr-4"
-					to="/"
-				>
-					<span className="text text-2xl font-bold tracking-tighter">
-						Vote<span className="text-secondary mx-2">&</span>Go
-					</span>
-				</Link>
-
-				<MobileMenuButton
-					isOpen={navbarOpen}
-					toggle={() => setNavbarOpen(!navbarOpen)}
-				/>
-
-				<NavigationMenu isOpen={navbarOpen} />
-			</div>
-		</header>
-	);
+interface HeaderProps {
+  darkMode: boolean;
 }
 
+const Header: React.FC<HeaderProps> = ({ darkMode }) => {
+  const dispatch = useDispatch();
+
+  const handleThemeSwitch = useCallback(() => {
+    dispatch(setThemeSetting());
+  }, [dispatch]);
+
+  const [navbarOpen, setNavbarOpen] = React.useState(false);
+
+  return (
+    <header className="bg text sticky top-0 z-50 border-b-[var(--bg-alt)] border-b-[1.2px]">
+      <div className="container mx-auto flex flex-wrap p-5 md:flex-row">
+        <Link className="flex items-center text mb-4 md:mb-0 pr-4" to="/">
+          <span className="text text-2xl font-bold tracking-tighter">
+            Vote<span className="text-secondary mx-2">&</span>Go
+          </span>
+        </Link>
+
+        <button className="group cursor-pointer" onClick={handleThemeSwitch}>
+          <div className="relative h-8 w-8">
+            <ThemeIcon darkMode={darkMode} />
+          </div>
+        </button>
+
+        <MobileMenuButton
+          isOpen={navbarOpen}
+          toggle={() => setNavbarOpen(!navbarOpen)}
+        />
+
+        <NavigationMenu isOpen={navbarOpen} />
+      </div>
+    </header>
+  );
+};
+
 const MobileMenuButton = ({ isOpen, toggle }) => (
-	<button
-		className="md:hidden ml-auto pb-3 focus:outline-none"
-		onClick={toggle}
-		aria-label="Toggle navigation"
-	>
-		<svg
-			className="w-6 h-6"
-			fill="none"
-			stroke="currentColor"
-			viewBox="0 0 24 24"
-		>
-			<path
-				strokeLinecap="round"
-				strokeLinejoin="round"
-				strokeWidth={2}
-				d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-			/>
-		</svg>
-	</button>
+  <button
+    className="md:hidden ml-auto pb-3 focus:outline-none"
+    onClick={toggle}
+    aria-label="Toggle navigation"
+  >
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+      />
+    </svg>
+  </button>
 );
 
 const NavigationMenu = ({ isOpen }) => (
@@ -71,3 +88,5 @@ const NavLink = ({ href, children }) => (
 		{children}
 	</Link>
 );
+
+export default Header;
