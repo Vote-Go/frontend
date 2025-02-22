@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { Container } from "../shared/Container";
 import Hero from "../widgets/Hero/Hero";
 
@@ -104,9 +105,12 @@ const EventsGrid = () => {
 								</svg>
 								{event.participants.toLocaleString()}
 							</div>
-							<button className=" px-4 cursor-pointer py-2 text-black bg-white hover:bg-white/30 hover:text-white rounded-lg transition-colors">
+							<Link
+								to={`/event/${event.id}`}
+								className=" px-4 cursor-pointer py-2 text-black bg-white hover:bg-white/30 hover:text-white rounded-lg transition-colors"
+							>
 								Vote Now
-							</button>
+							</Link>
 						</div>
 					</div>
 				</motion.div>

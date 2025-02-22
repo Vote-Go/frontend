@@ -1,7 +1,7 @@
 import Container from "../shared/Container/Container";
 import {
-  FeaturesList,
-  FeaturesListItem,
+	FeaturesList,
+	FeaturesListItem,
 } from "../widgets/FeaturesList/FeatureList";
 import Hero from "../widgets/Hero/Hero";
 import { HeroStats, HeroStatItem } from "../widgets/HeroStats/HeroStats";
@@ -19,12 +19,12 @@ const MainPage = () => {
 				/>
 			</Container>
 
-      {/* Live Markets Stats */}
-      <HeroStats>
-        <HeroStatItem value={12450} label="Active Markets" />
-        <HeroStatItem value={8932} label="Participants" />
-        <HeroStatItem value={2.1} label="Volume (ETH)" />
-      </HeroStats>
+			{/* Live Markets Stats */}
+			<HeroStats>
+				<HeroStatItem value={12450} label="Active Markets" />
+				<HeroStatItem value={8932} label="Participants" />
+				<HeroStatItem value={2.1} label="Volume (ETH)" />
+			</HeroStats>
 
 			{/* Platform Features */}
 			<Container border={true}>
@@ -42,10 +42,10 @@ const MainPage = () => {
 				</FeaturesList>
 			</Container>
 
-      {/* Team Section */}
-      <TeamSection />
-    </>
-  );
+			{/* Team Section */}
+			<TeamSection />
+		</>
+	);
 };
 
 export default MainPage;
