@@ -1,48 +1,26 @@
-import Container from "../shared/Container/Container";
-import {
-	FeaturesList,
-	FeaturesListItem,
-} from "../widgets/FeaturesList/FeatureList";
-import Hero from "../widgets/Hero/Hero";
-import { HeroStats, HeroStatItem } from "../widgets/HeroStats/HeroStats";
-import TeamSection from "../widgets/TeamSection/TeamSection";
+import { statsItems } from "../features/main/lib/constants";
+import { Container } from "../shared/ui/Container";
+import { FeaturesBlock } from "../widgets/features/ui/FeaturesBlock";
+import { Hero } from "../widgets/hero";
+import { StatsGrid } from "../widgets/stats/ui/StatsGrid";
+import { TeamSection } from "../widgets/team/TeamSection";
 
 const MainPage = () => {
 	return (
 		<>
-			{/* Hero Section */}
-			<Container border={true}>
+			<Container border>
 				<Hero
 					title="Predict. Vote. Earn."
-					subtitle="Decentralized prediction market platform where your
-						insight meets opportunity"
+					subtitle="Decentralized prediction market platform where your insight meets opportunity"
 				/>
 			</Container>
 
-			{/* Live Markets Stats */}
-			<HeroStats>
-				<HeroStatItem value={12450} label="Active Markets" />
-				<HeroStatItem value={8932} label="Participants" />
-				<HeroStatItem value={2.1} label="Volume (ETH)" />
-			</HeroStats>
+			<StatsGrid items={statsItems} />
 
-			{/* Platform Features */}
-			<Container border={true}>
-				<FeaturesList>
-					<FeaturesListItem title="Decentralized Governance">
-						Participate in platform decisions through our governance
-						system
-					</FeaturesListItem>
-					<FeaturesListItem title="Real-time Tracking">
-						Monitor market dynamics with live updates and analytics
-					</FeaturesListItem>
-					<FeaturesListItem title="Secure Transactions">
-						Built on Ethereum with smart contract audits
-					</FeaturesListItem>
-				</FeaturesList>
+			<Container border>
+				<FeaturesBlock />
 			</Container>
 
-			{/* Team Section */}
 			<TeamSection />
 		</>
 	);

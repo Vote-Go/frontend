@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux";
-import { RootState } from "./store/store";
 import { BrowserRouter, Route, Routes } from "react-router";
-import { Event, FAQ, Leaderboard, MainPage, Market } from "./pages";
-import Footer from "./widgets/Footer/Footer";
-import Header from "./widgets/Header/Header";
+import { RootState } from "./app/store";
+import { MainPage, Leaderboard, FAQ, Event } from "./pages";
+import { Market } from "./pages/Market";
+import Footer from "./widgets/footer/ui/Footer";
+import Header from "./widgets/header/ui/Header";
 
 export default function App() {
 	const darkMode = useSelector((state: RootState) => state.theme.darkMode);

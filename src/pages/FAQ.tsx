@@ -1,21 +1,20 @@
-import { ANSWER_QUESTION } from "../helpers/FAQ/answerQuestions";
-import QuestionPanel from "../helpers/FAQ/QuestionPanel";
-import { Container } from "../shared/Container";
-import Hero from "../widgets/Hero/Hero";
+import { Hero } from "../widgets/hero";
+import { Container } from "../shared/ui/Container";
+import { faqData } from "../features/faq/lib/faq-data";
+import { QuestionPanel } from "../widgets/faq/QuestionPanel/ui/QuestionPanel";
 
 const FAQ = () => {
 	return (
 		<Container>
-			<Hero title="FAQ" subtitle="Frequently Asked Questions" />
+			<Hero title="FAQ" subtitle="Часто задаваемые вопросы" />
 
 			<div className="mt-8 sm:mt-12 lg:mt-20">
-				{ANSWER_QUESTION.map((answer_question) => (
-					<>
-						<QuestionPanel
-							question={answer_question.question}
-							answer={answer_question.answer}
-						/>
-					</>
+				{faqData.map((item, index) => (
+					<QuestionPanel
+						key={index}
+						question={item.question}
+						answer={item.answer}
+					/>
 				))}
 			</div>
 		</Container>
