@@ -1,4 +1,3 @@
-// widgets/header/ui/NavigationMenu.tsx
 import { FC } from "react";
 import { NavLink } from "react-router";
 import { cn } from "../../../shared/lib/format/cn";
