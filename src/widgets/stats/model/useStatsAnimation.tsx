@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import React from "react";
 
 export const useStatsAnimation = () => {
 	const { ref, inView } = useInView({

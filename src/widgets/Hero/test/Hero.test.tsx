@@ -3,6 +3,8 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Hero from "../Hero";
 
+//TODO: подумать над тем, чтобы сделать универсальный template для тестирования чего-либо
+
 describe("Hero Component", () => {
 	it("renders title correctly with proper tag and content", () => {
 		render(<Hero title="Test Title" />);
