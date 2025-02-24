@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import ThemeIcon from "../../../features/theme/ui/ThemeIcon";
 import { MobileMenuButton } from "./MobileMenuButton";
 import { NavigationMenu } from "./NavigationMenu";
-
+import React from "react";
 interface IHeader {
 	darkMode: boolean;
 }
@@ -40,6 +40,7 @@ const Header: React.FC<IHeader> = ({ darkMode }) => {
 				<button
 					className="group cursor-pointer ml-5"
 					onClick={handleThemeSwitch}
+					data-testid="theme-switching-button"
 				>
 					<ThemeIcon darkMode={!darkMode} />
 				</button>
