@@ -4,8 +4,7 @@ import Container from "../Container";
 import React from "react";
 
 const CONTAINER_SECTION_TEST_ID = "container-section";
-const BORDER_CLASSES = ["border-b", "border-gray-300", "dark:border-gray-600"];
-const BASE_CLASSES = ["container", "mx-auto", "px-4", "py-20"];
+
 
 describe("shared Container", () => {
 	it("should render base classes without border and custom className", () => {
