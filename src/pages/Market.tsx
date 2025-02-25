@@ -1,4 +1,5 @@
 import { useEvents } from "../features/event/lib/hooks/useEvents";
+import FilterSection from "../features/event/ui/FilterSection";
 import { Container } from "../shared/ui/Container";
 import { ErrorMessage } from "../shared/ui/standart/ErrorMessage";
 import { Loader } from "../shared/ui/standart/Loader";
@@ -27,7 +28,7 @@ export const Market = () => {
 	if (isEmpty) {
 		return (
 			<Container>
-				<div className="text-center py-20 text-white/80">
+				<div className="text-center py-20 title">
 					No active events available
 				</div>
 			</Container>
@@ -40,7 +41,15 @@ export const Market = () => {
 				title="Choose. Vote. Win."
 				subtitle="Just select the most remarkable event and cast your vote"
 			/>
+			<hr className="bg-alt w-full h-[2px]" />
+			<h2 className="title !text-3xl text-center mt-5">
+				Top 3 Events Today
+			</h2>
 			<EventsGrid events={events} />
+			<h2 className="title !text-2xl text-center mt-5">Other Events</h2>
+			{/* Filters */}
+			<FilterSection />
+			{/* Cards */}
 		</Container>
 	);
 };

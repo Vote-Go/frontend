@@ -9,37 +9,36 @@ interface EventCardProps {
 }
 
 export const EventCard = ({ event }: EventCardProps) => (
-	<div className="bg-gray-800 rounded-xl overflow-hidden hover:shadow-lg transition-all shadow-white/30 dark:shadow-black/80 hover:-translate-y-2">
-		<div className="h-48 bg-gray-700 relative">
-			<ImageWithFallback
-				src={event.image}
-				alt={event.title}
-				fallback={<ImagePlaceholder />}
-			/>
-			<StatusBadge status={event.status} />
-		</div>
-
-		<div className="p-6">
-			<h3 className="text-white text-xl font-semibold mb-2">
-				{event.title}
-			</h3>
-			<p className="text-white/80 line-clamp-3 mb-4">
-				{event.description}
-			</p>
-
-			<div className="flex items-center justify-between text-sm">
-				<div className="flex items-center text-gray-400">
-					<ParticipantsIcon className="w-5 h-5 mr-2" />
-					{event.participants.toLocaleString()}
-				</div>
-				<Link
-					className="text-alt bg-alt px-3 py-1 rounded-4xl font-medium"
-					to={`/event/${event.id}`}
-				>
-					Vote Now
-				</Link>
+	<div className="bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all shadow-white/30 dark:shadow-black/80 hover:-translate-y-2">
+		<Link className="" to={`/event/${event.id}`}>
+			<div className="h-48 bg-gray-700 relative">
+				<ImageWithFallback
+					src={event.image}
+					alt={event.title}
+					fallback={<ImagePlaceholder />}
+				/>
+				<StatusBadge status={event.status} />
 			</div>
-		</div>
+
+			<div className="p-6">
+				<h3 className="text-white text-xl font-semibold mb-2">
+					{event.title}
+				</h3>
+				<p className="text-white/80 line-clamp-3 mb-4">
+					{event.description}
+				</p>
+
+				<div className="flex items-center justify-between text-sm">
+					<div className="flex items-center text-gray-400">
+						<ParticipantsIcon className="w-5 h-5 mr-2" />
+						{event.participants.toLocaleString()}
+					</div>
+					<div className="text-alt bg-alt px-3 py-1 rounded-4xl font-medium">
+						Vote Now
+					</div>
+				</div>
+			</div>
+		</Link>
 	</div>
 );
 
