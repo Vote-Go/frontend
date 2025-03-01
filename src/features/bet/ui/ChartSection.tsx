@@ -61,6 +61,7 @@ const ChartSection: React.FC<IChartSection> = ({
                 boxHeight: 10,
               },
             },
+            
           },
         }}
       />

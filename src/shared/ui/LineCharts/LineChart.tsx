@@ -45,6 +45,7 @@ export const LineChart = ({ data, options }: LineChartProps) => {
           font: { size: 14 },
         },
       },
+
       tooltip: {
         enabled: true,
         backgroundColor: "#fff",
@@ -99,7 +100,7 @@ export const LineChart = ({ data, options }: LineChartProps) => {
 
   return (
     <>
-      <div className="p-4 bg-white rounded-xl shadow-sm h-[50vh]">
+      <div className="p-4 dark:bg-white bg-white/10 rounded-xl shadow-sm h-[50vh]">
         <Line options={defaultOptions} data={processedData} />
       </div>
     </>

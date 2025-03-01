@@ -18,13 +18,12 @@ import { TypeOfVote } from "../entities/market/types/common";
 const SpreadButtons = (updateMarketData: Function, selectedSpread: string) => {
   const spreadOptions = ["1H", "6H", "1D", "1W", "1M", "ALL"];
   const spreadChooseStyle =
-    "focus:rounded-full focus:bg-black focus:text-white hover:cursor-pointer hover:bg-black/5  hover:rounded-full hover:delay-50";
-
+    "focus:rounded-full focus:dark:bg-black focus:bg-white focus:text-black focus:dark:text-white hover:cursor-pointer hover:bg-black/5 hover:rounded-full hover:delay-50";
   return spreadOptions.map((option, index) => {
     return (
       <button
         onClick={() => updateMarketData(option)}
-        className={`${index == 0 && selectedSpread == "1H" && "rounded-full text-white bg-black"} block mx-1 text-black/50 text-sm px-3 py-1 ${spreadChooseStyle}`}
+        className={`${index == 0 && selectedSpread == "1H" ? "rounded-full dark:bg-black dark:text-white bg-white text-black" : "dark:text-black/50 text-white"} block mx-1 text-sm px-3 py-1 ${spreadChooseStyle}`}
       >
         {option}
       </button>
@@ -49,8 +48,6 @@ const Event = () => {
     setSelectedSpread(option);
   }
 
-  console.log(marketData);
-
   return (
     <Container className="mx-auto space-y-6">
       <Hero
@@ -59,7 +56,7 @@ const Event = () => {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-8 xl:gap-12">
-        <div className="p-6 bg-white rounded-xl shadow-lg w-full md:order-2">
+        <div className="p-6 dark:bg-white bg-black rounded-xl shadow-lg w-full md:order-2">
           <ChartSection
             marketData={marketData}
             selectedSpread={selectedSpread}
@@ -84,7 +81,7 @@ const Event = () => {
                     marketData.currentStats[lowerOutcome].probability
                   }
                   onClick={() => setSelectedOutcome(outcome)}
-                  className="h-full"
+                  className="h-full dark:bg-white dark:text-black dark:hover:bg-gray-100 bg-white/5 text-white/80 hover:bg-white/10"
                 />
               );
             })}
