@@ -2,74 +2,107 @@ import { useMemo, useState } from "react";
 import { calculatePayout } from "../features/bet/lib";
 import { useBet } from "../features/bet/model/useBet";
 import {
-	Outcome,
-	BetArea,
-	EventDetails,
-	HistoryVotesTable,
-	ChartSection,
+  Outcome,
+  BetArea,
+  EventDetails,
+  HistoryVotesTable,
+  ChartSection,
 } from "../features/bet/ui";
 import { Container } from "../shared/ui/Container";
 import { Hero } from "../widgets/hero";
 import { formatMarketDate, generateMarketData } from "../shared/lib";
 import { TypeOfVote } from "../entities/market/types/common";
 
+// Buttons under the Chart for showing the spread across the given time period
+// 1H 1D 1W 1M ALL
+const SpreadButtons = (updateMarketData: Function, selectedSpread: string) => {
+  const spreadOptions = ["1H", "6H", "1D", "1W", "1M", "ALL"];
+  const spreadChooseStyle =
+    "focus:rounded-full focus:bg-black focus:text-white hover:cursor-pointer hover:bg-black/5  hover:rounded-full hover:delay-50";
+
+  return spreadOptions.map((option, index) => {
+    return (
+      <button
+        onClick={() => updateMarketData(option)}
+        className={`${index == 0 && selectedSpread == "1H" && "rounded-full text-white bg-black"} block mx-1 text-black/50 text-sm px-3 py-1 ${spreadChooseStyle}`}
+      >
+        {option}
+      </button>
+    );
+  });
+};
+
 const Event = () => {
-	const [marketData] = useState(generateMarketData()[0]);
-	const { selectedOutcome, setSelectedOutcome, amount, setAmount } = useBet();
+  const [selectedSpread, setSelectedSpread] = useState("1H"); // show for 1H time spread by default
+  const [marketData, setMarketData] = useState(
+    generateMarketData(selectedSpread)[0]
+  );
+  const { selectedOutcome, setSelectedOutcome, amount, setAmount } = useBet();
 
-	const potentialPayout = useMemo(
-		() => calculatePayout(amount, selectedOutcome, marketData),
-		[amount, selectedOutcome, marketData]
-	);
+  const potentialPayout = useMemo(
+    () => calculatePayout(amount, selectedOutcome, marketData),
+    [amount, selectedOutcome, marketData]
+  );
 
-	return (
-		<Container className="mx-auto space-y-6">
-			<Hero
-				title={marketData.title}
-				subtitle={`Закрытие: ${marketData.endDate}`}
-			/>
+  function updateMarketData(option: string) {
+    setMarketData(generateMarketData(option)[0]);
+    setSelectedSpread(option);
+  }
 
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-8 xl:gap-12">
-				<ChartSection marketData={marketData} className="md:order-2" />
+  console.log(marketData);
 
-				<div className="grid grid-rows-[auto_1fr] md:grid-rows-none gap-6 md:gap-8">
-					<div className="grid grid-cols-2 gap-4 md:gap-6 lg:gap-8">
-						{(["YES", "NO"] as TypeOfVote[]).map((outcome) => {
-							const lowerOutcome =
-								outcome.toLowerCase() as Lowercase<TypeOfVote>;
-							return (
-								<Outcome
-									key={outcome}
-									outcome={outcome}
-									selected={selectedOutcome === outcome}
-									price={
-										marketData.currentStats[lowerOutcome]
-											.price
-									}
-									probability={
-										marketData.currentStats[lowerOutcome]
-											.probability
-									}
-									onClick={() => setSelectedOutcome(outcome)}
-									className="h-full"
-								/>
-							);
-						})}
-					</div>
+  return (
+    <Container className="mx-auto space-y-6">
+      <Hero
+        title={marketData.title}
+        subtitle={`Закрытие: ${marketData.endDate}`}
+      />
 
-					<BetArea
-						selectedOutcome={selectedOutcome}
-						amount={amount}
-						onAmountChange={setAmount}
-						potentialPayout={potentialPayout}
-					/>
-				</div>
-			</div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-8 xl:gap-12">
+        <div className="p-6 bg-white rounded-xl shadow-lg w-full md:order-2">
+          <ChartSection
+            marketData={marketData}
+            selectedSpread={selectedSpread}
+          />
+          <div className="flex justify-between w-1/3 my-3">
+            {SpreadButtons(updateMarketData, selectedSpread)}
+          </div>
+        </div>
 
-			<EventDetails {...marketData} />
-			<HistoryVotesTable historicalData={marketData.historicalData} />
-		</Container>
-	);
+        <div className="grid grid-rows-[auto_1fr] md:grid-rows-none gap-6 md:gap-8">
+          <div className="grid grid-cols-2 gap-4 md:gap-6 lg:gap-8">
+            {(["YES", "NO"] as TypeOfVote[]).map((outcome) => {
+              const lowerOutcome =
+                outcome.toLowerCase() as Lowercase<TypeOfVote>;
+              return (
+                <Outcome
+                  key={outcome}
+                  outcome={outcome}
+                  selected={selectedOutcome === outcome}
+                  price={marketData.currentStats[lowerOutcome].price}
+                  probability={
+                    marketData.currentStats[lowerOutcome].probability
+                  }
+                  onClick={() => setSelectedOutcome(outcome)}
+                  className="h-full"
+                />
+              );
+            })}
+          </div>
+
+          <BetArea
+            selectedOutcome={selectedOutcome}
+            amount={amount}
+            onAmountChange={setAmount}
+            potentialPayout={potentialPayout}
+          />
+        </div>
+      </div>
+
+      <EventDetails {...marketData} />
+      <HistoryVotesTable historicalData={marketData.historicalData} />
+    </Container>
+  );
 };
 
 export default Event;
