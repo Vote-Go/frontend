@@ -93,8 +93,8 @@ const Event = () => {
         subtitle={`Закрытие: ${marketData.endDate}`}
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-8 xl:gap-12">
-        <div className="p-6 dark:bg-white bg-black rounded-xl shadow-lg w-full md:order-2">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 lg:gap-8 xl:gap-12">
+        <div className="p-6 dark:bg-white bg-black rounded-xl shadow-lg w-full md:col-span-2">
           <ChartSection
             marketData={marketData}
             selectedSpread={selectedSpread}
@@ -106,9 +106,9 @@ const Event = () => {
 
         <div className="grid grid-rows-[auto_1fr] md:grid-rows-none gap-6 md:gap-8">
           <div className="grid grid-cols-2 gap-4 md:gap-6 lg:gap-8">
-            <div className="border-1 w-76 h-auto bg-gray-900/25 dark:bg-white dark:border-gray-200 border-white/40 rounded-2xl">
+            <div className="border-1 w-76 h-auto max-h-80 bg-gray-900/25 dark:bg-white dark:border-gray-200 border-white/40 rounded-2xl">
               <div className="p-4">
-                <div className="*:w-32 *:h-12 flex justify-between  *:font-medium *:rounded-xl *:hover:cursor-pointer py-2 ">
+                <div className="*:w-32 *:h-12 flex justify-between *:font-medium *:rounded-xl *:hover:cursor-pointer py-2 ">
                   <button
                     onClick={() => setBuyYes(true)}
                     className={`${buyYes ? "bg-green-500/80 dark:bg-green-500 hover:bg-green-500/90 text-white/50 dark:text-white/75" : "bg-gray-600/50 dark:bg-gray-200 hover:bg-gray-600/45 dark:text-gray-700/30 dark:hover:bg-gray-200/50 text-white/40"}  `}
@@ -170,13 +170,6 @@ const Event = () => {
               </div>
             </div>
           </div>
-
-          <BetArea
-            selectedOutcome={selectedOutcome}
-            amount={amount}
-            onAmountChange={setAmount}
-            potentialPayout={potentialPayout}
-          />
         </div>
       </div>
 

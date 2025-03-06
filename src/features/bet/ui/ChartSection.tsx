@@ -24,7 +24,9 @@ const ChartSection: React.FC<IChartSection> = ({
 }) => {
   return (
     <>
-      <h3 className="text-xl font-semibold mb-4">Динамика цен</h3>
+      <h3 className="text-xl font-semibold mb-4 dark:text-black text-white">
+        Динамика цен
+      </h3>
       <LineChart
         data={{
           labels: marketData.activityChart.timestamps.map((t) =>
@@ -55,13 +57,12 @@ const ChartSection: React.FC<IChartSection> = ({
               },
             },
             legend: {
-              display: true,
+              display: false,
               labels: {
                 boxWidth: 20,
                 boxHeight: 10,
               },
             },
-            
           },
         }}
       />

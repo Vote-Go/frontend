@@ -65,7 +65,7 @@ const generateHistoricalData = (
 const createActivityChart = (
   historicalData: HistoricalDataPoint[]
 ): MarketActivityChart => ({
-  timestamps: historicalData.map((d) => d.date.getTime()),
+  timestamps: historicalData.map((d) => d.date.getTime()).reverse(),
 
   volumeNo: historicalData.map(
     (d) => 100 * Number((d.volumeNo / (d.volumeNo + d.volumeYes)).toFixed(1))
