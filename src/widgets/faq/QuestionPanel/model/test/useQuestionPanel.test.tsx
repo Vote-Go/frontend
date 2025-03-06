@@ -1,6 +1,6 @@
 // useQuestionPanel.test.js
 import { act, renderHook } from "@testing-library/react";
-import { useQuestionPanel } from "../useQuestionPanel"; // Убедитесь, что путь правильный
+import { useQuestionPanel } from "../useQuestionPanel"; 
 
 describe("useQuestionPanel", () => {
   test("должен иметь начальное состояние isOpen как false", () => {
@@ -15,12 +15,12 @@ describe("useQuestionPanel", () => {
     act(() => {
       result.current.toggle();
     });
-    expect(result.current.isOpen).toBe(true); // Теперь должно быть true
+    expect(result.current.isOpen).toBe(true); 
 
     // Переключаем снова
     act(() => {
       result.current.toggle();
     });
-    expect(result.current.isOpen).toBe(false); // Теперь должно быть false
+    expect(result.current.isOpen).toBe(false); 
   });
 });

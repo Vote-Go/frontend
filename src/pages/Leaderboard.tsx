@@ -1,7 +1,7 @@
 import { Hero } from "../widgets/hero";
 import { Container } from "../shared/ui/Container";
 import { BiSortAlt2 } from "react-icons/bi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface tableRows {
   name: string;
@@ -67,6 +67,11 @@ const generateTable = () => {
   const [tableData, setTableData] = useState(tableRows);
   const [sortByScoreType, setByScoreType] = useState("descending"); // sorts by descending by default
   const [sortByRatingType, setByRatingType] = useState("descending"); // sorts by descending by default
+
+  // sort the table by score in descending order once the page loads
+  useEffect(() => {
+    setTableData([...tableData].sort((a, b) => b.score - a.score));
+  }, []);
 
   const sortByScore = () => {
     let sortedScore;
