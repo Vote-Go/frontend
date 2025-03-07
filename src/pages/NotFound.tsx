@@ -1,6 +1,7 @@
 import { Hero } from "../widgets/hero";
 import { Container } from "../shared/ui/Container";
 import { Link } from "react-router";
+import React from "react";
 
 const NotFound = () => {
   return (

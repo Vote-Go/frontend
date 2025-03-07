@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { calculatePayout } from "../features/bet/lib";
 import { useBet } from "../features/bet/model/useBet";
+import React from "react";
 
 import {
   Outcome,
@@ -16,7 +17,10 @@ import { TypeOfVote } from "../entities/market/types/common";
 
 // Buttons under the Chart for showing the spread across the given time period
 // 1H 1D 1W 1M ALL
-const SpreadButtons = (updateMarketData: Function, selectedSpread: string) => {
+export const SpreadButtons = (
+  updateMarketData: Function,
+  selectedSpread: string
+) => {
   const spreadOptions = ["1H", "6H", "1D", "1W", "1M", "ALL"];
   const spreadChooseStyle =
     "focus:rounded-full focus:dark:bg-black focus:bg-white focus:text-black focus:dark:text-white hover:cursor-pointer hover:bg-black/5 hover:rounded-full hover:delay-50";
@@ -106,11 +110,15 @@ const Event = () => {
 
         <div className="grid grid-rows-[auto_1fr] md:grid-rows-none gap-6 md:gap-8">
           <div className="grid grid-cols-2 gap-4 md:gap-6 lg:gap-8">
-            <div className="border-1 w-76 h-auto max-h-80 bg-gray-900/25 dark:bg-white dark:border-gray-200 border-white/40 rounded-2xl">
+            <div
+              data-testid="betting-interface"
+              className="border-1 w-76 h-auto max-h-80 bg-gray-900/25 dark:bg-white dark:border-gray-200 border-white/40 rounded-2xl"
+            >
               <div className="p-4">
                 <div className="*:w-32 *:h-12 flex justify-between *:font-medium *:rounded-xl *:hover:cursor-pointer py-2 ">
                   <button
                     onClick={() => setBuyYes(true)}
+                    data-testid="yes-button-id"
                     className={`${buyYes ? "bg-green-500/80 dark:bg-green-500 hover:bg-green-500/90 text-white/50 dark:text-white/75" : "bg-gray-600/50 dark:bg-gray-200 hover:bg-gray-600/45 dark:text-gray-700/30 dark:hover:bg-gray-200/50 text-white/40"}  `}
                   >
                     Yes{" "}
@@ -122,6 +130,7 @@ const Event = () => {
                   </button>
                   <button
                     onClick={() => setBuyYes(false)}
+                    data-testid="no-button-id"
                     className={`${!buyYes ? "bg-red-600/70 dark:bg-red-600/90 hover:bg-red-600/60 text-white/60 dark:text-white/70" : "bg-gray-600/50 dark:hover:bg-gray-200/75 dark:bg-gray-200 hover:bg-gray-600/45 dark:text-gray-500/75 text-white/40"} `}
                   >
                     No
@@ -148,8 +157,10 @@ const Event = () => {
                       value={betValue}
                       className={`!transition placeholder-gray-700 dark:placeholder-gray-400 text-right focus:outline-none w-4/5 dark:text-black text-white text-4xl`}
                       placeholder="0"
+                      data-testid="bet-input"
                     />{" "}
                     <span
+                      data-testid="dollar-sign-id"
                       className={`${!isBet ? "text-gray-700 dark:text-gray-400" : "text-white dark:text-black"} text-4xl`}
                     >
                       $
