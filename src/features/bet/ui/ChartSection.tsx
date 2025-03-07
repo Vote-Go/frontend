@@ -1,5 +1,6 @@
 import { MarketData } from "../../../entities/market/types/market";
 import { LineChart } from "../../../shared/ui/LineCharts/LineChart";
+import React from "react";
 
 interface IChartSection {
   marketData: MarketData;
@@ -7,7 +8,7 @@ interface IChartSection {
 }
 
 // date that's being shown along the x axis
-const dateAxis = (selectedSpread: string, t: Date): string => {
+export const dateAxis = (selectedSpread: string, t: Date): string => {
   if (
     selectedSpread == "1H" ||
     selectedSpread == "6H" ||

@@ -2,6 +2,7 @@ import { Button } from "../../../shared/ui/standart/Button";
 import { Input } from "../../../shared/ui/standart/Input";
 import { TypeOfVote } from "../../../entities/market/types/common";
 import { cn } from "../../../shared/lib/format/cn";
+import React from "react";
 
 interface IBetArea {
   selectedOutcome: TypeOfVote;

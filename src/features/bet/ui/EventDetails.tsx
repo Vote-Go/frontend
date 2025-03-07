@@ -1,3 +1,5 @@
+import React from "react";
+
 interface IEventDetails {
   description: string;
   resolutionDetails: string;

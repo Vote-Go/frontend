@@ -1,5 +1,6 @@
 import { HistoricalDataPoint } from "../../../entities/market/types/market";
 import { formatPrice } from "../../../shared/lib";
+import React from "react";
 
 interface IHistoryVotesTable {
   historicalData: HistoricalDataPoint[];
