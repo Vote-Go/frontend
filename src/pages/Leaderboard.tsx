@@ -2,6 +2,7 @@ import { Hero } from "../widgets/hero";
 import { Container } from "../shared/ui/Container";
 import { BiSortAlt2 } from "react-icons/bi";
 import { useState, useEffect } from "react";
+import React from "react";
 
 interface tableRows {
   name: string;
@@ -103,21 +104,26 @@ const generateTable = () => {
         <table className="w-full  group table-fixed ">
           <thead className="[&_tr]:border-b [&_tr]:border-gray-800/50 dark:[&_tr]:border-gray-300 hover:bg-gray-900/40 dark:hover:bg-gray-200/50">
             <tr>
-              {tableHeaders.map((header) => {
+              {tableHeaders.map((header, index) => {
                 return (
                   <>
-                    <th className="dark:text-gray-400 text-gray-400/50  h-10 px-2 text-left font-medium group-hover:cursor-pointer">
+                    <th
+                      key={index}
+                      className="dark:text-gray-400 text-gray-400/50  h-10 px-2 text-left font-medium group-hover:cursor-pointer"
+                    >
                       {header}
                       {header == "Score" ? (
                         <BiSortAlt2
                           onClick={sortByScore}
                           className="text-xl inline"
+                          data-testid="sort-score"
                         />
                       ) : null}
                       {header == "Rating" ? (
                         <BiSortAlt2
                           onClick={sortByRating}
                           className="text-xl inline"
+                          data-testid="sort-rating"
                         />
                       ) : null}
                     </th>
@@ -129,7 +135,7 @@ const generateTable = () => {
           <tbody className=" [&_tr:last-child]:border-0">
             {tableData.map((row, index) => {
               return (
-                <tr className="border-b dark:text-black text-white/75 border-gray-800/50 dark:border-gray-300 *:p-2 hover:bg-gray-900/40 dark:hover:bg-gray-100">
+                <tr key={index} className="border-b dark:text-black text-white/75 border-gray-800/50 dark:border-gray-300 *:p-2 hover:bg-gray-900/40 dark:hover:bg-gray-100">
                   <td>{index + 1}</td>
                   <td>{row.name}</td>
                   <td>{row.rating}</td>
@@ -149,7 +155,7 @@ const Leaderboard = () => {
     <Container>
       <Hero
         title="Our top predictors"
-        subtitle="people who prediced the right outcome the most times"
+        subtitle="people who predicted the right outcome the most times"
       />
 
       {generateTable()}
