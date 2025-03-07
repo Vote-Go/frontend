@@ -1,5 +1,6 @@
 import { FC, InputHTMLAttributes } from "react";
 import { cn } from "../../lib/format/cn";
+import React from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
