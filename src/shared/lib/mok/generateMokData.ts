@@ -27,7 +27,7 @@ const calculateProbabilities = (index: number) => {
 // spreadBy: [1 hour | 6 hours | 1 day | 1 week | 1 month| ALL]
 // step: [10 minutes | 3 hours | 12 hours | 3 days | 7 days | 2 weeks]
 // returns date: "28.02.2025 21:00" | "28.02.2025 18:00" | "28.02.2025 09:00", etc.
-const dateSpread = (baseDate: Date, spreadBy: string, index: number) => {
+export const dateSpread = (baseDate: Date, spreadBy: string, index: number) => {
   switch (spreadBy) {
     case "1H":
       return subMinutes(baseDate, MINUTE_DIFFER * index); // two dates differ by 10- minutes
