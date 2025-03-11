@@ -1,7 +1,15 @@
 import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router";
 import { RootState } from "./app/store";
-import { MainPage, Leaderboard, FAQ, Event, NotFound, Signup } from "./pages";
+import {
+  MainPage,
+  Leaderboard,
+  FAQ,
+  Event,
+  NotFound,
+  Signup,
+  Login,
+} from "./pages";
 import { Market } from "./pages/Market";
 import Footer from "./widgets/footer/ui/Footer";
 import Header from "./widgets/header/ui/Header";
@@ -16,6 +24,7 @@ export default function App() {
     { path: "/event/:id", element: <Event /> },
     { path: "*", element: <NotFound /> },
     { path: "/signup", element: <Signup /> },
+    { path: "/login", element: <Login /> },
   ];
 
   return (

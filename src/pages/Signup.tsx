@@ -1,17 +1,11 @@
+import React from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useState } from "react";
+import { Link } from "react-router";
 import { Hero } from "../widgets/hero";
 import { Container } from "../shared/ui/Container";
-import { useForm, SubmitHandler } from "react-hook-form";
-import React from "react";
-import { useState, useEffect } from "react";
-import { Eye, EyeOff } from "lucide-react";
-import { Link } from "react-router";
-import { Fields, Code } from "../entities/signup/types/signup";
-import {
-  serverConfirmationCode,
-  formFields,
-  validationFields,
-} from "../features/signup/lib/validation";
-
+import { Fields } from "../entities/signup/types/signup";
+import { formFields } from "../features/signup/lib/validation";
 import ConfirmationWindow from "../features/signup/ui/ConfirmationWindow";
 import SuccessfullRegistration from "../features/signup/ui/SuccessfullRegistration";
 import FieldInput from "../features/signup/ui/FieldInput";
@@ -68,6 +62,15 @@ const Signup = () => {
                 />
               );
             })}
+
+            <div className="mt-4 w-full flex flex-col">
+              <span className="font-medium dark:text-gray-600 text-gray-200">
+                Already have an account?
+              </span>
+              <span className="text-lg dark:text-blue-600 text-blue-300">
+                <Link to="/login">Log in</Link>
+              </span>
+            </div>
 
             <input
               onClick={() => setIsSubmit(true)}
