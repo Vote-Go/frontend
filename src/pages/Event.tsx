@@ -1,6 +1,7 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { calculatePayout } from "../features/bet/lib";
 import { useBet } from "../features/bet/model/useBet";
+import { useEvents } from "../features/event/lib/hooks/useEvents";
 import React from "react";
 
 import {
@@ -42,6 +43,8 @@ const Event = () => {
     generateMarketData(selectedSpread)[0]
   );
   const { selectedOutcome, setSelectedOutcome, amount, setAmount } = useBet();
+  const [voteTitle, setVoteTitle] = useState("");
+  const { events, isLoading, error, isEmpty } = useEvents();
 
   const potentialPayout = useMemo(
     () => calculatePayout(amount, selectedOutcome, marketData),
@@ -58,12 +61,31 @@ const Event = () => {
     Max: 0,
   };
 
+  const path = window.location.pathname;
+  const parts = path.split("/");
+  const id = parts[parts.length - 1];
+
   const handleAddition = (raise) => {
     if (betValue == "") {
       setBetValue(String(raise));
     } else {
       const newBetAmount = String(raise == 0 ? 0 : parseInt(betValue) + raise);
       setBetValue(newBetAmount);
+    }
+  };
+
+  const handleVote = () => {
+    const storedIds = localStorage.getItem("votedQuestions");
+    const votedQuestions = storedIds ? JSON.parse(storedIds) : [];
+
+    if (!votedQuestions.includes(id)) {
+      votedQuestions.push(id);
+
+      localStorage.setItem("votedQuestions", JSON.stringify(votedQuestions));
+
+      alert(`You have voted on question with ID: ${id}`);
+    } else {
+      alert(`You have already voted on question with ID: ${id}`);
     }
   };
 
@@ -92,11 +114,12 @@ const Event = () => {
 
   return (
     <Container className="mx-auto space-y-6">
-      <Hero
-        title={marketData.title}
-        subtitle={`Закрытие: ${marketData.endDate}`}
-      />
-
+      {!isLoading && (
+        <Hero
+          title={events[parseInt(id) - 1].title}
+          subtitle={`Закрытие: ${marketData.endDate}`}
+        />
+      )}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 lg:gap-8 xl:gap-12">
         <div className="p-6 dark:bg-white bg-black rounded-xl shadow-lg w-full md:col-span-2">
           <ChartSection
@@ -144,8 +167,11 @@ const Event = () => {
               </div>
               <div className="p-4 h-22 relative bottom-2 flex justify-between">
                 <div>
-                  <p className="text-gray-200/75 text-lg font-bold dark:text-gray-600">
-                    Amount
+                  <p
+                    onClick={handleVote}
+                    className="text-gray-200/75 text-lg font-bold dark:text-gray-600"
+                  >
+                    Vote
                   </p>
                 </div>
 

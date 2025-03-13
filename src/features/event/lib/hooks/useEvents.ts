@@ -1,31 +1,69 @@
 import { useEffect, useState } from "react";
-import { MOCK_EVENTS } from "../mokEvents";
-import { EventItem } from "../../../../entities/event/types/event";
+import axios from "axios";
+
+// Define the type for an EventItem
+interface EventItem {
+  id: string;
+  title: string;
+  description: string;
+}
 
 export const useEvents = () => {
-	const [events, setEvents] = useState<EventItem[]>([]);
-	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
+  // State variables
+  const [events, setEvents] = useState<EventItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-	useEffect(() => {
-		const fetchEvents = async () => {
-			try {
-				await new Promise((resolve) => setTimeout(resolve, 500));
-				setEvents(MOCK_EVENTS);
-			} catch (err) {
-				setError("Failed to load events");
-			} finally {
-				setIsLoading(false);
-			}
-		};
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const query = `
+          query MyQuery {
+            questions {
+              id
+              title
+              description
+            }
+          }
+        `;
 
-		fetchEvents();
-	}, []);
+        const response = await axios({
+          method: "post",
+          url: "https://yamata-no-orochi.nktkln.com/graphql",
+          headers: {
+            accept: "application/json, multipart/mixed",
+            "content-type": "application/json",
+            origin: "https://yamata-no-orochi.nktkln.com",
+            priority: "u=1, i",
+            referer: "https://yamata-no-orochi.nktkln.com/graphql",
+          },
+          data: {
+            query,
+            operationName: "MyQuery",
+          },
+        });
 
-	return {
-		events,
-		isLoading,
-		error,
-		isEmpty: !isLoading && events.length === 0,
-	};
+        setEvents(response.data.data.questions);
+      } catch (err) {
+        // Handle errors
+        setError(
+          err.response
+            ? err.response.data
+            : err.message || "Failed to load events"
+        );
+      } finally {
+        // Update loading state
+        setIsLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+  return {
+    events,
+    isLoading,
+    error,
+    isEmpty: !isLoading && events.length === 0,
+  };
 };

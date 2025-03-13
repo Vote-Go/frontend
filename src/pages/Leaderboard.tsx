@@ -3,6 +3,7 @@ import { Container } from "../shared/ui/Container";
 import { BiSortAlt2 } from "react-icons/bi";
 import { useState, useEffect } from "react";
 import React from "react";
+import axios from "axios";
 
 interface tableRows {
   name: string;
@@ -10,9 +11,71 @@ interface tableRows {
   score: number;
 }
 
+const FetchUsers = () => {
+  // State to store the fetched users
+  const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        // Define the GraphQL query
+        const query = `
+          query MyQuery {
+            users {
+              correctVoteCount
+              createdAt
+              email
+              id
+              nickname
+              score
+            }
+          }
+        `;
+
+        // Make the Axios POST request
+        const response = await axios({
+          method: "post",
+          url: "https://yamata-no-orochi.nktkln.com/graphql",
+          headers: {
+            accept: "application/json, multipart/mixed",
+            "content-type": "application/json",
+            origin: "https://yamata-no-orochi.nktkln.com",
+            priority: "u=1, i",
+            referer: "https://yamata-no-orochi.nktkln.com/graphql",
+          },
+          data: {
+            query,
+            operationName: "MyQuery",
+          },
+        });
+
+        const fetchedUsers = response.data.data.users;
+        setUsers(fetchedUsers);
+      } catch (err) {
+        // Handle errors
+        setError(
+          err.response
+            ? err.response.data
+            : err.message || "Failed to fetch users"
+        );
+      } finally {
+        // Update loading state
+        setIsLoading(false);
+      }
+    };
+
+    // Call the fetchUsers function
+    fetchUsers();
+  }, []); // Empty dependency array ensures this runs only once on mount
+};
+
 const generateTable = () => {
   const tableHeaders = ["№", "Name", "Rating", "Score"];
-  const tableRows: tableRows[] = [
+  const [tableData, setTableData] = useState<tableRows[]>([]);
+
+  /*const tableRows: tableRows[] = [
     {
       name: "Marat",
       rating: 4.5,
@@ -63,9 +126,74 @@ const generateTable = () => {
       rating: 3,
       score: 522,
     },
-  ];
+  ]; */
 
-  const [tableData, setTableData] = useState(tableRows);
+  const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        // Define the GraphQL query
+        const query = `
+          query MyQuery {
+            users {
+              correctVoteCount
+              createdAt
+              email
+              id
+              nickname
+              score
+            }
+          }
+        `;
+
+        // Make the Axios POST request
+        const response = await axios({
+          method: "post",
+          url: "https://yamata-no-orochi.nktkln.com/graphql",
+          headers: {
+            accept: "application/json, multipart/mixed",
+            "content-type": "application/json",
+            origin: "https://yamata-no-orochi.nktkln.com",
+            priority: "u=1, i",
+            referer: "https://yamata-no-orochi.nktkln.com/graphql",
+          },
+          data: {
+            query,
+            operationName: "MyQuery",
+          },
+        });
+
+        const fetchedUsers = response.data.data.users;
+
+        const formattedUsers = fetchedUsers.map((user) => ({
+          name: user.nickname, // Use the nickname field
+          rating: user.correctVoteCount, // Use correctVoteCount as "rating"
+          score: user.score,
+        }));
+
+        setUsers(fetchedUsers);
+        setTableData(formattedUsers);
+        console.log(fetchedUsers);
+      } catch (err) {
+        // Handle errors
+        setError(
+          err.response
+            ? err.response.data
+            : err.message || "Failed to fetch users"
+        );
+      } finally {
+        // Update loading state
+        setIsLoading(false);
+      }
+    };
+
+    // Call the fetchUsers function
+    fetchUsers();
+  }, []); // Empty dependency array ensures this runs only once on mount
+
   const [sortByScoreType, setByScoreType] = useState("descending"); // sorts by descending by default
   const [sortByRatingType, setByRatingType] = useState("descending"); // sorts by descending by default
 
@@ -97,6 +225,8 @@ const generateTable = () => {
     }
     setTableData(sortedRating);
   };
+
+  console.log(tableData);
 
   return (
     <div className="dark:bg-white bg-black rounded-md lg:w-3/4 mx-auto border-gray-800/50 dark:border-gray-300 border-1">
@@ -135,7 +265,10 @@ const generateTable = () => {
           <tbody className=" [&_tr:last-child]:border-0">
             {tableData.map((row, index) => {
               return (
-                <tr key={index} className="border-b dark:text-black text-white/75 border-gray-800/50 dark:border-gray-300 *:p-2 hover:bg-gray-900/40 dark:hover:bg-gray-100">
+                <tr
+                  key={index}
+                  className="border-b dark:text-black text-white/75 border-gray-800/50 dark:border-gray-300 *:p-2 hover:bg-gray-900/40 dark:hover:bg-gray-100"
+                >
                   <td>{index + 1}</td>
                   <td>{row.name}</td>
                   <td>{row.rating}</td>

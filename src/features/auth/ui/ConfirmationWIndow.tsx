@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { serverConfirmationCode } from "../../signup/lib/validation";
 import { Code } from "../../../entities/signup/types/signup";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 const VERIFICATION_URL = "https://yamata-no-orochi.nktkln.com/auth/verify_code";
 // userCode = 123456, serverCode = 122456 => no match; userCode = 1234, serverCode = 1234 => account is created
@@ -17,30 +18,15 @@ const ConfirmationWindow = ({ onNext, email }) => {
   } = useForm<Code>({ mode: "onChange" });
 
   const code = watch("code");
+  const redirect = useNavigate();
 
-  /*
-  useEffect(() => {
-    if (code?.length === 6) {
-      handleSubmit((data) => {
-        if (data.code !== serverConfirmationCode) {
-          setError("code", {
-            type: "manual",
-            message: "Incorrect code. Please try again.",
-          });
-        }
-      })();
-    } else {
-      clearErrors("code");
-    }
-  }, [code, handleSubmit, setError, clearErrors]);
-*/
   const onSubmit: SubmitHandler<Code> = async (data) => {
-    try {
-      const response = await axios.post(VERIFICATION_URL, {
-        code: data.code,
-        email: email,
-      });
-    } catch {}
+    const response = await axios.post(VERIFICATION_URL, {
+      code: data.code,
+      email: email,
+    });
+
+    redirect("/");
   };
 
   return (
@@ -86,3 +72,4 @@ const ConfirmationWindow = ({ onNext, email }) => {
 };
 
 export default ConfirmationWindow;
+

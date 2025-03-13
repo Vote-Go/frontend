@@ -9,6 +9,7 @@ import {
   NotFound,
   Signup,
   Login,
+  AddQuestion,
 } from "./pages";
 import { Market } from "./pages/Market";
 import Footer from "./widgets/footer/ui/Footer";
@@ -25,6 +26,7 @@ export default function App() {
     { path: "*", element: <NotFound /> },
     { path: "/signup", element: <Signup /> },
     { path: "/login", element: <Login /> },
+    { path: "/market/add", element: <AddQuestion /> },
   ];
 
   return (
