@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { serverConfirmationCode } from "../lib/validation";
+import { serverConfirmationCode } from "../../signup/lib/validation";
 import { Code } from "../../../entities/signup/types/signup";
-// userCode = 1234, serverCode = 3456 => no match; userCode = 1234, serverCode = 1234 => account is created
-const ConfirmationWindow = ({ onNext }) => {
+import axios from "axios";
+
+const VERIFICATION_URL = "https://yamata-no-orochi.nktkln.com/auth/verify_code";
+// userCode = 123456, serverCode = 122456 => no match; userCode = 1234, serverCode = 1234 => account is created
+const ConfirmationWindow = ({ onNext, email }) => {
   const {
     register,
     watch,
@@ -15,8 +18,9 @@ const ConfirmationWindow = ({ onNext }) => {
 
   const code = watch("code");
 
+  /*
   useEffect(() => {
-    if (code?.length === 4) {
+    if (code?.length === 6) {
       handleSubmit((data) => {
         if (data.code !== serverConfirmationCode) {
           setError("code", {
@@ -29,11 +33,14 @@ const ConfirmationWindow = ({ onNext }) => {
       clearErrors("code");
     }
   }, [code, handleSubmit, setError, clearErrors]);
-
-  const onSubmit: SubmitHandler<Code> = (data) => {
-    if (data.code === serverConfirmationCode) {
-      onNext(1);
-    }
+*/
+  const onSubmit: SubmitHandler<Code> = async (data) => {
+    try {
+      const response = await axios.post(VERIFICATION_URL, {
+        code: data.code,
+        email: email,
+      });
+    } catch {}
   };
 
   return (
@@ -41,7 +48,7 @@ const ConfirmationWindow = ({ onNext }) => {
       <div className="flex flex-col">
         <span className="text-center text text-xl">Almost done!</span>
         <span className="text-center text text-md pt-4">
-          Check your email, we have sent you a 4-digt confirmation code so that
+          Check your email, we have sent you a 6-digt confirmation code so that
           you can finish the registration
         </span>
       </div>
@@ -57,13 +64,13 @@ const ConfirmationWindow = ({ onNext }) => {
           <input
             type="text"
             inputMode="numeric"
-            maxLength={4}
+            maxLength={6}
             autoComplete="off"
             className="border-gray-300 focus:border-blue-400 py-1 px-2 focus:outline-none border-1 rounded-lg"
             {...register("code", {
               required: "Code is required",
               pattern: {
-                value: /^\d{4}$/,
+                value: /^\d{6}$/,
               },
             })}
           />

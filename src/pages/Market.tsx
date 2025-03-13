@@ -46,7 +46,6 @@ export const Market = () => {
       <h2 className="title !text-3xl text-center mt-5">Top 3 Events Today</h2>
       <EventsGrid events={events} />
       <h2 className="title !text-2xl text-center mt-5">Other Actions</h2>
-      <QuestionAdd />
     </Container>
   );
 };

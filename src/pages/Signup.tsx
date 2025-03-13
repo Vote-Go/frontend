@@ -6,9 +6,13 @@ import { Hero } from "../widgets/hero";
 import { Container } from "../shared/ui/Container";
 import { Fields } from "../entities/signup/types/signup";
 import { formFields } from "../features/signup/lib/validation";
-import ConfirmationWindow from "../features/signup/ui/ConfirmationWindow";
+import ConfirmationWindow from "../features/auth/ui/ConfirmationWIndow";
 import SuccessfullRegistration from "../features/signup/ui/SuccessfullRegistration";
 import FieldInput from "../features/signup/ui/FieldInput";
+import axios from "axios";
+
+const REGISTRATION_URL =
+  "https://yamata-no-orochi.nktkln.com/auth/registration";
 
 const Signup = () => {
   const {
@@ -21,18 +25,22 @@ const Signup = () => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [next, setNext] = useState(0); // redirects the user to the next registration step; 0 -> code request, 1 -> message about successfull creation of the account
   const [confirmation, setConfirmation] = useState(false); // tell user to type the code that is being sent to email
+  const [userEmail, setUserEmail] = useState(""); // store the user's email when he submits the form
 
-  watch("username");
+  watch("nickname");
   watch("email");
   watch("password");
   watch("confirmPassword");
 
-  const onSubmit: SubmitHandler<Fields> = (data) => {
+  const onSubmit: SubmitHandler<Fields> = async (data) => {
+    let userData = Object.fromEntries(Object.entries(data).slice(0, 3)); // send only username, email, and password to the server
+    const response = await axios.post(REGISTRATION_URL, userData);
+    setUserEmail(data.email);
     setConfirmation(true);
   };
 
   const registrationSteps = [
-    <ConfirmationWindow onNext={setNext} />,
+    <ConfirmationWindow onNext={setNext} email={userEmail} />,
     <SuccessfullRegistration />,
   ];
 

@@ -1,11 +1,11 @@
 // input field constraints for validation
-const serverConfirmationCode = "1234"; // code that is being sent via email
+//const serverConfirmationCode = "1234"; // code that is being sent via email
 
 // describes the form fields for each form
 const formFields = [
   {
     type: "text",
-    name: "username",
+    name: "nickname",
     placeholder: "Username",
     label: "Username",
   },

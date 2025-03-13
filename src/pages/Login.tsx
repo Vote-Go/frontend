@@ -9,6 +9,10 @@ import { formFields } from "../features/login/lib/validation";
 import { useNavigate } from "react-router";
 import LoginLoader from "../features/login/ui/LoginLoader";
 import FieldInput from "../features/login/ui/Fieldinput";
+import ConfirmationWindow from "../features/auth/ui/ConfirmationWIndow";
+import axios from "axios";
+
+const LOGIN_URL = "https://yamata-no-orochi.nktkln.com/auth/login";
 
 const validateUser = async (
   username: string,
@@ -34,14 +38,17 @@ const Login = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Fields>({ mode: "onChange" });
+  } = useForm<Fields>({ mode: "onSubmit" });
 
+  const [confirmation, setConfirmation] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
+  const [next, setNext] = useState(0);
+  const [userEmail, setUserEmail] = useState(""); // store user's email when he submits the form
   const redirect = useNavigate();
 
-  watch("username");
+  watch("email");
   watch("password");
 
   const onSubmit: SubmitHandler<Fields> = async (data) => {
@@ -49,13 +56,12 @@ const Login = () => {
     setLoginError(null);
 
     try {
-      const isUserExist = await validateUser(data.username, data.password);
-
-      if (isUserExist) {
-        redirect("/");
-      } else {
-        setLoginError("Invalid username or password!");
-      }
+      const response = await axios.post(LOGIN_URL, data, {
+        headers: { "content-type": "application/x-www-form-urlencoded" },
+      });
+      setConfirmation(true);
+      setUserEmail(data.email);
+      console.log(response);
     } catch (error) {
       setLoginError("An error occured. Plase try again later!");
     } finally {
@@ -66,53 +72,56 @@ const Login = () => {
   return (
     <Container>
       <Hero title="Login" subtitle="Login if you want to vote!" />
-
-      <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3 mx-auto border-1 border-gray-100 dark:border-gray-300 p-8 rounded-lg">
-        <form
-          className="flex gap-2 flex-col justify-center items-center"
-          action=""
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          {formFields.map(({ type, name, placeholder, label }, index) => {
-            return (
-              <FieldInput
-                key={index}
-                type={type}
-                name={name}
-                placeholder={placeholder}
-                label={label}
-                index={index}
-                register={register}
-                errors={errors}
-                isSubmit={isSubmit}
-                watch={watch}
-              />
-            );
-          })}
-
-          <div className="w-full ">
-            <span className="font-medium text-red-500">{loginError}</span>
-          </div>
-
-          <div className="w-full flex flex-col">
-            <span className="font-medium dark:text-gray-600 text-gray-200">
-              Don't have an account yet?
-            </span>
-            <span className="text-lg dark:text-blue-600 text-blue-300">
-              <Link to="/signup">Sign Up</Link>
-            </span>
-          </div>
-
-          <button
-            onClick={() => setIsSubmit(true)}
-            type="submit"
-            className={` border-none rounded-lg cursor-pointer  bg-gray-100 text-gray-800  dark:hover:bg-blue-500/75 dark:bg-blue-500 dark:text-white font-medium text-center w-3/4 h-10 mt-8`}
+      {!confirmation ? (
+        <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3 mx-auto border-1 border-gray-100 dark:border-gray-300 p-8 rounded-lg">
+          <form
+            className="flex gap-2 flex-col justify-center items-center"
+            action=""
+            onSubmit={handleSubmit(onSubmit)}
           >
-            <span className="px-2">Log in</span>
-            {isLoading && <LoginLoader />}
-          </button>
-        </form>
-      </div>
+            {formFields.map(({ type, name, placeholder, label }, index) => {
+              return (
+                <FieldInput
+                  key={index}
+                  type={type}
+                  name={name}
+                  placeholder={placeholder}
+                  label={label}
+                  index={index}
+                  register={register}
+                  errors={errors}
+                  isSubmit={isSubmit}
+                  watch={watch}
+                />
+              );
+            })}
+
+            <div className="w-full ">
+              <span className="font-medium text-red-500">{loginError}</span>
+            </div>
+
+            <div className="w-full flex flex-col">
+              <span className="font-medium dark:text-gray-600 text-gray-200">
+                Don't have an account yet?
+              </span>
+              <span className="text-lg dark:text-blue-600 text-blue-300">
+                <Link to="/signup">Sign Up</Link>
+              </span>
+            </div>
+
+            <button
+              onClick={() => setIsSubmit(true)}
+              type="submit"
+              className={` border-none rounded-lg cursor-pointer  bg-gray-100 text-gray-800  dark:hover:bg-blue-500/75 dark:bg-blue-500 dark:text-white font-medium text-center w-3/4 h-10 mt-8`}
+            >
+              <span className="px-2">Log in</span>
+              {isLoading && <LoginLoader />}
+            </button>
+          </form>
+        </div>
+      ) : (
+        <ConfirmationWindow onNext={setNext} email={userEmail} />
+      )}
     </Container>
   );
 };

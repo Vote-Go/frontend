@@ -1,10 +1,10 @@
 // describes the form fields for each form
 const formFields = [
   {
-    type: "text",
-    name: "username",
-    placeholder: "Username",
-    label: "Username",
+    type: "email",
+    name: "email",
+    placeholder: "Email",
+    label: "Email",
   },
   {
     type: "password",
@@ -16,7 +16,7 @@ const formFields = [
 
 const validationFields = [
   {
-    required: { value: true, message: "Username is required" },
+    required: { value: true, message: "Email is required" },
   },
 
   {

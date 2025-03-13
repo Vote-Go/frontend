@@ -1,5 +1,5 @@
 export type Fields = {
-  username: string;
+  nickname: string;
   email: string;
   password: string;
   confirmPassword: string;
